@@ -6,12 +6,30 @@ class DoublyLinkedListTest {
 
     @Test
     void append() {
-        DoublyLinkedList dll = new DoublyLinkedList();
+        DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
         dll.append(1);
-        assertEquals(dll.toString(), "1 -> NULL");
+        assertEquals("1 -> NULL", dll.toString());
+        dll.append(2);
+        assertEquals("1 -> 2 -> NULL", dll.toString());
+        dll.append(4);
+        dll.append(3);
+        assertEquals("1 -> 2 -> 4 -> 3 -> NULL", dll.toString());
     }
 
     @Test
     void testToString() {
+    }
+
+    @Test
+    void insert() {
+        DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
+        dll.append(1);
+        assertEquals("1 -> NULL", dll.toString());
+        dll.append(2);
+        assertEquals("1 -> 2 -> NULL", dll.toString());
+        dll.insert(1, 3);
+        assertEquals("1 -> 3 -> 2 -> NULL", dll.toString());
+        dll.insert(0, 2);
+        assertEquals("2 -> 1 -> 3 -> 2 -> NULL", dll.toString());
     }
 }
