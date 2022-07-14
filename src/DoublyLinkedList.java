@@ -5,6 +5,7 @@ public class DoublyLinkedList<T extends Comparable<T>> {
 
     /***
      * The class 'append' should follow the following workflow.
+     *
      * 1. Create a new node with the data that should be appended to the list.
      * 2. Check if there is a node in the list already.
      * 3. If there is no node, append the previous pointer to NULL, and the next pointer
@@ -59,7 +60,7 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     }
 
     /***
-     * The class 'insert' should follow the following workflow
+     * The class 'insert' should have the following workflow.
      *
      * 1. It should determine that the location is within the list. If it is not in the
      * list, it should throw and IllegalArgumentException. Also, the function will work
@@ -79,32 +80,83 @@ public class DoublyLinkedList<T extends Comparable<T>> {
          */
         Node<T> toInsert = new Node<>(data);
         Node<T> current = this.head;
-        if(location != 0) {
-            for (int i = 0; i < location; i++) {
-                try {
+        try {
+            if (location != 0) {
+                for (int i = 0; i < location; i++) {
                     if (current != null) {
                         current = current.next;
                     }
-                } catch (IllegalArgumentException e) {
-                    return toInsert;
+                    if (current == null){
+                        return toInsert;
+                    }
                 }
+            } else {
+                current.prev = toInsert;
+                toInsert.next = current;
+                this.head = toInsert;
+                return toInsert;
             }
-        } else {
-            current.prev = toInsert;
-            toInsert.next = current;
-            this.head = toInsert;
-            return toInsert;
-        }
         /*
         Once we have found the location in the list we reassign the pointers to move
         things forward
          */
-        toInsert.prev = current.prev;
-        toInsert.next = current;
-        current.prev.next = toInsert;
-        current.prev = toInsert;
+            toInsert.prev = current.prev;
+            toInsert.next = current;
+            current.prev.next = toInsert;
+            current.prev = toInsert;
 
-        return toInsert;
+            return toInsert;
+        } catch(IllegalArgumentException e){
+            return toInsert;
+        }
+    }
+
+    /***
+     * This class will have the following workflow.
+     *
+     * 1. Find the location within the list, assuming it exists, and taking action if it
+     * does not.
+     * 2. Link the previous item on the list to the item after the data to be deleted and
+     * vise versa.
+     * @param location determines which item to delete
+     * @return toDelete
+     */
+    public Node<T> delete(int location){
+        /*
+        First, we create a node to hold our current location within the list
+         */
+        Node<T> current = this.head;
+        /*
+        Then, we work through the list until we get to the desired location.
+         */
+        if(location == 0){
+            if(current.next == null){
+                head = null;
+                return current;
+            } else {
+                head = head.next;
+                head.prev = null;
+                return current;
+            }
+        } else {
+            for(int i = 0; i < location; i++){
+                if(current != null){
+                    current = current.next;
+                }
+                if(current == null){
+                    return null;
+                }
+            }
+        }
+        /*
+        Now that we have found the location of the item to be removed from the list,
+        we just have to remap the pointers
+         */
+        current.prev.next = current.next;
+        if(current.next != null){
+            current.next.prev = current.prev;
+        }
+        return current;
     }
     @Override
     public String toString(){
