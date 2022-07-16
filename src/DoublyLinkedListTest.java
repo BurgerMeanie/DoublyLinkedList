@@ -81,4 +81,20 @@ class DoublyLinkedListTest {
         dll.shuffle();
         assertEquals("2 -> 1 -> 4 -> 3 -> 5 -> NULL", dll.toString());
     }
+
+    @Test
+    void partition() {
+        DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
+        DoublyLinkedList<Integer> dll2 = new DoublyLinkedList<>();
+        dll2 = dll.partition(3);
+        assertEquals("NULL", dll2.toString());
+        dll.append(1);
+        dll.append(2);
+        dll.append(3);
+        dll.append(4);
+        dll.append(5);
+        dll.append(2);
+        dll2 = dll.partition(3);
+        assertEquals("4 -> 5 -> NULL", dll2.toString());
+    }
 }

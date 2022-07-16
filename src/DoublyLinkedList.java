@@ -229,6 +229,27 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     }
 
     /***
+     * The partition class just compares the data between a given value and every value in
+     * the list. Once it finds a value in the list that is larger than the given value,
+     * it returns it in a new list.
+     * @param data
+     * @return newList
+     */
+    public DoublyLinkedList partition(T data){
+        DoublyLinkedList<T> newList = new DoublyLinkedList<>();
+        Node<T> current = this.head;
+
+        while(current != null){
+            if(current.data.compareTo(data) > 0){
+                newList.append(current.data);
+            }
+            current = current.next;
+        }
+
+        return newList;
+    }
+
+    /***
      * This class is just used for unit tests. It creates a string consisting of all the
      * data in the list.
      * @return stringBuilder.toString()
