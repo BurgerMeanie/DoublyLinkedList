@@ -54,4 +54,16 @@ class DoublyLinkedListTest {
         dll.delete(0);
         assertEquals("NULL", dll.toString());
     }
+
+    @Test
+    void getIndex() {
+        DoublyLinkedList<Integer> dll = new DoublyLinkedList<>();
+        dll.append(1);
+        dll.append(2);
+        dll.append(3);
+        dll.append(4);
+        dll.append(5);
+        assertEquals(2, dll.getIndex(3));
+        assertEquals(-1, dll.getIndex(6));
+    }
 }

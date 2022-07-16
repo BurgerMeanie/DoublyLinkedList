@@ -158,6 +158,38 @@ public class DoublyLinkedList<T extends Comparable<T>> {
         }
         return current;
     }
+
+    /***
+     * This class returns the index of queried data. It does this by comparing the data
+     * variable for a node to the provided data. It goes through the entire list one by
+     * one using the "current" node. If the data and the node's data never match, the
+     * function returns a -1.
+     *
+     * @param data is the data that we are looking for the index of.
+     * @return index
+     */
+    public int getIndex(T data) {
+        int index = 0;
+        Node<T> current = this.head;
+
+        while(current.next != null){
+            if(current.data == data){
+                return index;
+            } else {
+                index++;
+                current = current.next;
+            }
+        }
+
+        index = -1;
+        return index;
+    }
+
+    /***
+     * This class is just used for unit tests. It creates a string consisting of all the
+     * data in the list.
+     * @return stringBuilder.toString()
+     */
     @Override
     public String toString(){
         Node<T> toPrint = this.head;
