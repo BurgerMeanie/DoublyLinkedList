@@ -186,6 +186,49 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     }
 
     /***
+     * This method shuffles the list. This is a very simple shuffle that just switches data
+     * every two spots. So the first and second items swap, the third and fourth items swap,
+     * and so forth. The workflow is as follows.
+     *
+     * 1. Check to be sure there is data in this.head, as well as this.head.next
+     * If not, just return this.head.
+     * 2. We will move through the list similar to previous times, using a "current" node,
+     * but instead of incrementing by one, we will be incrementing by two.
+     * 3. Each time, we will check that there are two items to shuffle, the same as we did
+     * before.
+     * 4. Once we have found two items, we will swap their data, using temporary values
+     * to do so.
+     */
+    public Node<T> shuffle(){
+        /*
+        First we declare a node to hold our place in the list, and then a node to hold
+        pointers while we swap them.
+         */
+        Node<T> current = this.head;
+        Node<T> temp = new Node<>(null);
+        /*
+        We check to make sure that there are two nodes that can be swapped.
+         */
+        if(this.head == null || this.head.next == null){
+            return this.head;
+        }
+        /*
+        Using a temporary node to hold the data, we swap the data between nodes.
+         */
+        while(current != null && current.next != null){
+            temp.data = current.data;
+            current.data = current.next.data;
+            current.next.data = temp.data;
+            /*
+            Finally, we make sure to move two steps forward in the list.
+             */
+            current = current.next.next;
+        }
+
+        return this.head;
+    }
+
+    /***
      * This class is just used for unit tests. It creates a string consisting of all the
      * data in the list.
      * @return stringBuilder.toString()
